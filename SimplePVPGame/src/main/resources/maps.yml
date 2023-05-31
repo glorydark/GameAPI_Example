@@ -1,0 +1,8 @@
+"ParkourSquare-Easy":
+  WaitSpawn: "120:4:96:ParkourSquare-Easy"
+  StartSpawn: "119:4:85:ParkourSquare-Easy"
+  WaitTime: 3
+  GameTime: 100
+  MinPlayer: 1
+  MaxPlayer: 1
+  LoadWorld: ParkourSquare-Easy
