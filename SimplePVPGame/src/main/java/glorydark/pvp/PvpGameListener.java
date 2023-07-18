@@ -12,7 +12,7 @@ import gameapi.listener.base.annotations.GameEventHandler;
 import gameapi.listener.base.interfaces.GameListener;
 import gameapi.room.Room;
 import gameapi.room.RoomStatus;
-import gameapi.utils.SmartTools;
+import gameapi.utils.PlayerTools;
 
 public class PvpGameListener implements GameListener {
 
@@ -31,8 +31,8 @@ public class PvpGameListener implements GameListener {
         Room room = event.getRoom();
         Player dead = event.getPlayer();
         if(event.getLastDamageSource() == null){
-            SmartTools.sendMessage(room.getPlayers(), event.getPlayer().getName()+" tumble to death.");
-            SmartTools.sendMessage(room.getSpectators(), event.getPlayer().getName()+" tumble to death.");
+            room.sendMessageToAll(event.getPlayer().getName()+" tumble to death.");
+            PlayerTools.sendMessage(room.getSpectators(), event.getPlayer().getName()+" tumble to death.");
             Player win = null;
             for(Player player: event.getRoom().getPlayers()){
                 if(player != dead){
@@ -40,14 +40,11 @@ public class PvpGameListener implements GameListener {
                 }
             }
             if(win != null) {
-                SmartTools.sendMessage(room.getPlayers(), win + " won the trophy!");
-                SmartTools.sendMessage(room.getSpectators(), win + " won the trophy!");
+                room.sendMessageToAll(win + " won the trophy!");
             }
         }else{
-            SmartTools.sendMessage(room.getPlayers(), event.getPlayer().getName()+" was killed by "+event.getLastDamageSource().getName());
-            SmartTools.sendMessage(room.getSpectators(), event.getPlayer().getName()+" was slain by "+event.getLastDamageSource().getName());
-            SmartTools.sendMessage(room.getPlayers(), event.getLastDamageSource().getName() + " is the last player standing!");
-            SmartTools.sendMessage(room.getSpectators(), event.getLastDamageSource().getName() + " is the last player standing!");
+            room.sendMessageToAll(event.getPlayer().getName()+" was killed by "+event.getLastDamageSource().getName());
+            room.sendMessageToAll(event.getLastDamageSource().getName() + " is the last player standing!");
         }
         room.setRoomStatus(RoomStatus.ROOM_STATUS_GameEnd);
     }

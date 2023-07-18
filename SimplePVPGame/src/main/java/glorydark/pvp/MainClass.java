@@ -6,12 +6,13 @@ import cn.nukkit.plugin.Plugin;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.scheduler.NukkitRunnable;
 import cn.nukkit.utils.Config;
+import gameapi.GameAPI;
 import gameapi.arena.Arena;
 import gameapi.listener.base.GameListenerRegistry;
 import gameapi.room.Room;
 import gameapi.room.RoomRule;
 import gameapi.room.RoomStatus;
-import gameapi.utils.SmartTools;
+import gameapi.utils.PlayerTools;
 
 import java.util.*;
 
@@ -54,7 +55,7 @@ public class MainClass extends PluginBase {
                         Player p2 = queuePlayers.get(1);
                         room.addPlayer(p1);
                         room.addPlayer(p2);
-                        SmartTools.sendMessage(room.getPlayers(), "Preparing the match, map:"+mapName);
+                        PlayerTools.sendMessage(room.getPlayers(), "Preparing the match, map:"+mapName);
                         queuePlayers.remove(p1);
                         queuePlayers.remove(p2);
                     }else{
@@ -127,10 +128,10 @@ public class MainClass extends PluginBase {
                     room.setMinPlayer(2);
                     room.setMaxPlayer(2);
                     room.setEndSpawn(Server.getInstance().getDefaultLevel().getSpawnLocation().getLocation());
-                    Room.loadRoom(room);
-                    room.setRoomStatus(RoomStatus.ROOM_STATUS_WAIT);
                     room.setWinConsoleCommands((List<String>) config.getOrDefault("WinCommands", new ArrayList<>()));
                     room.setLoseConsoleCommands((List<String>) config.getOrDefault("FailedCommands", new ArrayList<>()));
+
+                    GameAPI.loadRoom(room, RoomStatus.ROOM_STATUS_WAIT);
                     this.getLogger().info("Room "+map+" loaded successfully!");
                     return room;
                 } else {
