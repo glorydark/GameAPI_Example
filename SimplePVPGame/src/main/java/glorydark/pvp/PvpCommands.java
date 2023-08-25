@@ -16,31 +16,31 @@ public class PvpCommands extends Command {
         if(strings.length > 0){
             switch (strings[0]){
                 case "matching":
-                    if(commandSender.isPlayer() && MainClass.queuePlayers.remove((Player) commandSender)){
+                    if(commandSender.isPlayer() && MainClass.queuePlayers.remove((Player) commandSender)) {
                         commandSender.sendMessage("You left the queue of matching!");
-                    }else{
+                    } else {
                         commandSender.sendMessage("Finding an available match for you...");
                         MainClass.queuePlayers.add((Player) commandSender);
                     }
                     break;
                 case "watch":
-                    if(commandSender.isPlayer()){
+                    if(commandSender.isPlayer()) {
                         Room room = Room.getRoom("PvpSimple", strings[1]);
-                        if(room != null){
-                            if(room.getSpectators().contains((Player) commandSender)){
+                        if(room != null) {
+                            if(room.getSpectators().contains((Player) commandSender)) {
                                 room.removeSpectator((Player) commandSender);
                                 commandSender.sendMessage("Quit spectating!" );
-                            }else{
+                            } else {
                                 room.setSpectator((Player) commandSender, 1, false);
                                 commandSender.sendMessage("You're a spectator now!");
                             }
-                        }else{
-                            commandSender.sendMessage("未找到房间！");
+                        } else {
+                            commandSender.sendMessage("Unable to find an available match for you！");
                         }
                     }
                     break;
                 case "help":
-                    commandSender.sendMessage(""); //Write your tips
+                    commandSender.sendMessage(""); // Write your tips
                     break;
             }
         }

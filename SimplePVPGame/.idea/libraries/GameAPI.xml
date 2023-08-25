@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="GameAPI">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../dependences/GameAPI.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
